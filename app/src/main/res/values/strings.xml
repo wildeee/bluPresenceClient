@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">bluPresenceClient</string>
+    <string name="procurar_conexoes">Procurar Conexões</string>
 </resources>
