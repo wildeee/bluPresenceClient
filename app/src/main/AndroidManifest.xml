@@ -16,6 +16,7 @@
         </activity>
 
         <activity android:name=".ProcurarConexoesListActivity"/>
+        <activity android:name=".AuthenticationFormActivity"  />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

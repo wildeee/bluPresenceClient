@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">bluPresenceClient</string>
     <string name="procurar_conexoes">Procurar Conexões</string>
+    <string name="efetuar_login_na_instituicao">Efetuar login na instituição</string>
+    <string name="login">Login</string>
+    <string name="senha">Senha</string>
+    <string name="autenticar">Autenticar</string>
+    <string name="carregando">Carregando...</string>
 </resources>

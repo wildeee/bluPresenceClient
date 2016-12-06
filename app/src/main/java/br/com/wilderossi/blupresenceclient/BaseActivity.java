@@ -20,5 +20,4 @@ public abstract class BaseActivity extends AppCompatActivity implements Creatabl
         super.onCreate(savedInstanceState);
         setContentView(getActivity());
     }
-
 }

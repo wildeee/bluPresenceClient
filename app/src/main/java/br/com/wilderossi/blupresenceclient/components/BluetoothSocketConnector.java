@@ -5,6 +5,8 @@ import android.util.Log;
 
 import java.io.IOException;
 
+import br.com.wilderossi.blupresenceclient.navigation.SingletonHelper;
+
 public class BluetoothSocketConnector implements Runnable {
 
     private final BluetoothSocket socket;
@@ -19,6 +21,7 @@ public class BluetoothSocketConnector implements Runnable {
             socket.connect();
         } catch (IOException connectException) {
             Log.e("ERRO: ", connectException.getMessage());
+            SingletonHelper.procurarConexoesListActivity.showConnectionErrorDialog();
             try {
                 socket.close();
             }

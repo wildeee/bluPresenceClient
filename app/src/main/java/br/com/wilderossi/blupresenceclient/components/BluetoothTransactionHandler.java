@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import br.com.wilderossi.blupresenceclient.AuthenticationFormActivity;
 import br.com.wilderossi.blupresenceclient.navigation.SingletonHelper;
 
 public class BluetoothTransactionHandler implements Runnable {
@@ -36,6 +37,22 @@ public class BluetoothTransactionHandler implements Runnable {
         input.read(buffer);
         String urlInstituicao = new String(getFilledBuffer(buffer));
         SingletonHelper.urlInstituicao = urlInstituicao;
+        SingletonHelper.procurarConexoesListActivity.redirectTo(AuthenticationFormActivity.class);
+        SingletonHelper.threadAwaits = Boolean.TRUE;
+        while (SingletonHelper.threadAwaits) { }
+        if (SingletonHelper.serverIdAluno == null){
+            output.write("AUTH ERROR".getBytes());
+            return;
+        }
+
+        output.write(SingletonHelper.serverIdAluno.getBytes());
+        buffer = new byte[1024];
+        input.read(buffer);
+        String response = new String(getFilledBuffer(buffer));
+        if ("Sucesso!".equals(response)){
+            
+        }
+
     }
 
     private byte[] getFilledBuffer(byte[] buffer) {
