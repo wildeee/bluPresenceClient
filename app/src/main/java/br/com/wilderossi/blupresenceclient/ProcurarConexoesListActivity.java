@@ -1,6 +1,5 @@
 package br.com.wilderossi.blupresenceclient;
 
-import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.wilderossi.blupresenceclient.components.BluetoothSocketConnector;
-import br.com.wilderossi.blupresenceclient.components.Callback;
 import br.com.wilderossi.blupresenceclient.navigation.SingletonHelper;
 
 public class ProcurarConexoesListActivity extends BaseActivity implements AdapterView.OnItemClickListener {
@@ -71,7 +69,7 @@ public class ProcurarConexoesListActivity extends BaseActivity implements Adapte
 
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(mReceiver, filter);
-        adapter.startDiscovery();
+        boolean started = adapter.startDiscovery();
     }
 
     @Override
@@ -98,6 +96,16 @@ public class ProcurarConexoesListActivity extends BaseActivity implements Adapte
         {
             public void run() {
                 Toast.makeText(getApplicationContext(), "Problema na conexão", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void threadedFinish(final String message){
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
             }
         });
     }
