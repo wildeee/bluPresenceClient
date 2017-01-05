@@ -50,6 +50,7 @@ public class BluetoothTransactionHandler implements Runnable {
             while (SingletonHelper.threadAwaits) { }
             if (SingletonHelper.serverIdAluno == null){
                 output.write("AUTH ERROR".getBytes());
+                socket.close();
                 return;
             }
             serverIdAluno = SingletonHelper.serverIdAluno;
@@ -70,6 +71,7 @@ public class BluetoothTransactionHandler implements Runnable {
         input.read(buffer);
         String response = new String(getFilledBuffer(buffer));
         SingletonHelper.procurarConexoesListActivity.threadedFinish(response);
+        socket.close();
     }
 
     private byte[] getFilledBuffer(byte[] buffer) {
