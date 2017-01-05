@@ -12,7 +12,7 @@ import br.com.wilderossi.blupresenceclient.navigation.SingletonHelper;
 import br.com.wilderossi.blupresenceclient.transaction.Aluno;
 import br.com.wilderossi.blupresenceclient.transaction.services.AlunoService;
 
-public class BluetoothTransactionHandler implements Runnable {
+public class BluetoothTransactionHandler {
 
     private final BluetoothSocket socket;
     private AlunoService alunoService;
@@ -23,7 +23,6 @@ public class BluetoothTransactionHandler implements Runnable {
         this.socket = socket;
     }
 
-    @Override
     public void run() {
         try {
             InputStream input = socket.getInputStream();

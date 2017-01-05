@@ -27,6 +27,7 @@ public class ProcurarConexoesListActivity extends BaseActivity implements Adapte
     private ListView listViewDevices;
 
     private BluetoothAdapter adapter;
+    private BluetoothSocketConnector connector;
 
     private ArrayAdapter<String> devicesAdapter;
     private List<BluetoothDevice> devices;
@@ -76,6 +77,9 @@ public class ProcurarConexoesListActivity extends BaseActivity implements Adapte
     public void finish() {
         super.finish();
         unregisterReceiver(mReceiver);
+        if (connector != null){
+            connector.cancel();
+        }
     }
 
     @Override
@@ -85,7 +89,8 @@ public class ProcurarConexoesListActivity extends BaseActivity implements Adapte
             BluetoothSocket socket = deviceClicado.createRfcommSocketToServiceRecord(SingletonHelper.APP_UUID);
             adapter.cancelDiscovery();
             SingletonHelper.procurarConexoesListActivity = this;
-            new Thread(new BluetoothSocketConnector(socket)).start();
+            connector = new BluetoothSocketConnector(socket);
+            new Thread(connector).start();
         } catch (IOException e) {
             Log.e("ProcurarConexoesList", e.getMessage());
         }

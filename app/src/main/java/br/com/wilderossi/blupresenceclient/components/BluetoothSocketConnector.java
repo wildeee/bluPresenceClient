@@ -28,7 +28,7 @@ public class BluetoothSocketConnector implements Runnable {
             catch (IOException closeException) { }
             return;
         }
-        new Thread(new BluetoothTransactionHandler(socket)).start();
+        new BluetoothTransactionHandler(socket).run();
     }
 
     public void cancel() {
