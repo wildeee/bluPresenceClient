@@ -14,6 +14,8 @@ import br.com.wilderossi.blupresenceclient.navigation.SingletonHelper;
 
 public class MainActivity extends BaseActivity {
 
+    private static final Integer BLUETOOTH_PERMISSION_REQUEST = 1;
+
     @Override
     public int getActivity() {
         return R.layout.activity_main;
@@ -32,7 +34,7 @@ public class MainActivity extends BaseActivity {
         BluetoothAdapter mBluetoothAdapter = bluetoothManager.getAdapter();
         if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, 1);
+            startActivityForResult(enableBtIntent, BLUETOOTH_PERMISSION_REQUEST);
             return;
         }
 
@@ -40,4 +42,12 @@ public class MainActivity extends BaseActivity {
         redirectTo(ProcurarConexoesListActivity.class);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == BLUETOOTH_PERMISSION_REQUEST){
+            if (resultCode == -1){
+                onClickProcurarConexoes(null);
+            }
+        }
+    }
 }
